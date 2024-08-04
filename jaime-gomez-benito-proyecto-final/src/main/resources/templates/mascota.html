@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalle de Mascota</title>
+</head>
+<body>
+    <h1 th:text="${mascota.nombre}"></h1>
+    <p>Raza: <span th:text="${mascota.raza}"></span></p>
+    <p>Fecha de Nacimiento: <span th:text="${mascota.fechaNac}"></span></p>
+    <p>Peso: <span th:text="${mascota.peso}"></span></p>
+    <p>Tiene Chip: <span th:text="${mascota.tiene_chip ? 'Sí' : 'No'}"></span></p>
+    <img th:src="${mascota.url_foto}" alt="Foto"/>
+    <a href="/">Volver</a>
+</body>
+</html>

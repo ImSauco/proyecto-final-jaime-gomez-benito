@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mascotas en Adopción</title>
+</head>
+<body>
+    <h1>Mascotas en Adopción</h1>
+    <a href="/mascotas/nueva">Agregar Nueva Mascota</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Raza</th>
+                <th>Fecha de Nacimiento</th>
+                <th>Peso</th>
+                <th>Tiene Chip</th>
+                <th>Foto</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="mascota : ${mascotas}">
+                <td th:text="${mascota.nombre}"></td>
+                <td th:text="${mascota.raza}"></td>
+                <td th:text="${mascota.fechaNac}"></td>
+                <td th:text="${mascota.peso}"></td>
+                <td th:text="${mascota.tiene_chip ? 'Sí' : 'No'}"></td>
+                <td><img th:src="${mascota.url_foto}" alt="Foto" width="100"/></td>
+                <td>
+                    <a th:href="@{/mascotas/{id}(id=${mascota.id})}">Ver</a>
+                    <a th:href="@{/mascotas/delete/{id}(id=${mascota.id})}">Borrar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
