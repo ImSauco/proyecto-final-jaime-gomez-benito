@@ -3,6 +3,7 @@ package com.keepcoding.controller.api;
 import com.keepcoding.entity.Mascota;
 import com.keepcoding.service.MascotaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,9 +36,11 @@ public class MascotaController {
         return mascotaService.getAll();
     }
 
+   
     @GetMapping("/youngest")
     public List<Mascota> getYoungest() {
-        return mascotaService.getYoungest();
+        Page<Mascota> page = mascotaService.getYoungest(20);
+        return page.getContent();
     }
 
     @GetMapping("/page/{page}")

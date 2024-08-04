@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,7 +29,7 @@ public class MascotaService {
         }
 
         public List<Mascota> getByNombre(String nombre) {
-            return mascotaRepository.findByNombre(nombre);
+            return mascotaRepository.findByNombreContainingIgnoreCase(nombre);
         }
 
         public Mascota save(Mascota mascota) {
@@ -39,8 +40,9 @@ public class MascotaService {
             return mascotaRepository.findAll();
         }
 
-        public List<Mascota> getYoungest() {
-            return mascotaRepository.findAll(PageRequest.of(0, 20)).getContent();
+        public Page<Mascota> getYoungest(int size) {
+            Pageable pageable = PageRequest.of(0, size, Sort.by(Sort.Direction.DESC, "fechaNac"));
+            return mascotaRepository.findAll(pageable);
         }
 
         public void deleteById(Long id) {
