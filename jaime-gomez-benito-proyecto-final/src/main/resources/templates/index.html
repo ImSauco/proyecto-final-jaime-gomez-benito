@@ -19,7 +19,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="mascota : ${mascotas}">
+            <tr th:each="mascota : ${mascotasPage.content}">
                 <td th:text="${mascota.nombre}"></td>
                 <td th:text="${mascota.raza}"></td>
                 <td th:text="${mascota.fechaNac}"></td>
@@ -33,5 +33,10 @@
             </tr>
         </tbody>
     </table>
+    <div>
+        <a th:href="@{/(page=${mascotasPage.number - 1})}" th:if="${mascotasPage.hasPrevious()}">Anterior</a>
+        <a th:href="@{/(page=${mascotasPage.number + 1})}" th:if="${mascotasPage.hasNext()}">Siguiente</a>
+    </div>
+    <p>Página <span th:text="${mascotasPage.number + 1}">1</span> de <span th:text="${mascotasPage.totalPages}">1</span></p>
 </body>
 </html>

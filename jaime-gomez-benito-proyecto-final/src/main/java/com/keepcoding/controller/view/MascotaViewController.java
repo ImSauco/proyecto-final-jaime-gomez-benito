@@ -3,14 +3,13 @@ package com.keepcoding.controller.view;
 import com.keepcoding.entity.Mascota;
 import com.keepcoding.service.MascotaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 @Controller
 public class MascotaViewController {
@@ -19,9 +18,10 @@ public class MascotaViewController {
     private MascotaService mascotaService;
 
     @GetMapping("/")
-    public String home(Model model) {
-        List<Mascota> mascotas = mascotaService.getAll();
-        model.addAttribute("mascotas", mascotas);
+    public String home(@RequestParam(defaultValue = "0") int page, Model model) {
+        int size = 5;
+        Page<Mascota> mascotasPage = mascotaService.getMascotasPage(page, size);
+        model.addAttribute("mascotasPage", mascotasPage);
         return "index";
     }
 
