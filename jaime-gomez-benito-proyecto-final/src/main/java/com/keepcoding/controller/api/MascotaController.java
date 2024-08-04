@@ -4,6 +4,7 @@ import com.keepcoding.entity.Mascota;
 import com.keepcoding.service.MascotaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,12 +43,15 @@ public class MascotaController {
         Page<Mascota> page = mascotaService.getYoungest(20);
         return page.getContent();
     }
-
+    
     @GetMapping("/page/{page}")
-    public List<Mascota> getPaged(@PathVariable int page) {
-        return mascotaService.getPaged(page);
+    public ResponseEntity<List<Mascota>> getPaged(
+            @PathVariable int page,
+            @RequestParam(defaultValue = "5") int size) {
+        Page<Mascota> pageResult = mascotaService.getPaged(page, size);
+        return ResponseEntity.ok(pageResult.getContent());
     }
-
+    
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
         mascotaService.deleteById(id);

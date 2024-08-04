@@ -18,7 +18,5 @@ public class Mascota {
     private boolean tiene_chip;
     private String url_foto;
 
-    @ManyToOne
-    @JoinColumn(name = "propietario_id")
-    private Propietario propietario;
+ 
 }

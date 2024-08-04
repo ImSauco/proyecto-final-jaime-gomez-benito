@@ -49,8 +49,9 @@ public class MascotaService {
             mascotaRepository.deleteById(id);
         }
 
-        public List<Mascota> getPaged(int page) {
-            return mascotaRepository.findAll(PageRequest.of(page, 5)).getContent();
+        public Page<Mascota> getPaged(int page, int size) {
+            Pageable pageable = PageRequest.of(page, size);
+            return mascotaRepository.findAll(pageable);
         }
     
     }
